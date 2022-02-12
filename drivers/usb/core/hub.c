@@ -4858,6 +4858,7 @@ static void hub_port_connect(struct usb_hub *hub, int port1, u16 portstatus,
 	struct usb_port *port_dev = hub->ports[port1 - 1];
 	struct usb_device *udev = port_dev->child;
 	static int unreliable_port = -1;
+	enum usb_device_speed dev_speed = USB_SPEED_UNKNOWN;
 	bool retry_locked;
 
 	/* Disconnect any existing devices under this port */
@@ -4961,6 +4962,15 @@ retry_enum:
 		if (status < 0)
 			goto loop;
 
+<<<<<<< HEAD
+=======
+		dev_speed = udev->speed;
+		if (udev->speed > USB_SPEED_UNKNOWN &&
+				udev->speed <= USB_SPEED_HIGH && hcd->usb_phy
+				&& hcd->usb_phy->disable_chirp)
+			hcd->usb_phy->disable_chirp(hcd->usb_phy,
+					false);
+>>>>>>> 29d666dee66051dc6ecf0a85be0a09f287e9629e
 		mutex_unlock(hcd->address0_mutex);
 		usb_unlock_port(port_dev);
 		retry_locked = false;

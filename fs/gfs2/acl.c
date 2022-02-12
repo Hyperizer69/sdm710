@@ -86,6 +86,7 @@ int __gfs2_set_acl(struct inode *inode, struct posix_acl *acl, int type)
 	char *data;
 	const char *name = gfs2_acl_name(type);
 
+	if (acl) {
 		len = posix_acl_to_xattr(&init_user_ns, acl, NULL, 0);
 		if (len == 0)
 			return 0;
